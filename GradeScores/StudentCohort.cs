@@ -4,8 +4,15 @@ using System.Text;
 
 namespace GradeScores
 {
-	class StudentCohort
+	public class StudentCohort
 	{
+		// Exception messages for test framework
+		public const string ExceptionIncorrectNumberOfTokens = "Incorrect number of tokens";
+		public const string ExceptionInvalidGrade = "Invalid grade";
+		public const string ExceptionNoDataProvided = "No data provided";
+
+		///////////////////////////////////////////////////////////////////////
+
 		public struct Student
 		{
 			public string lastName;
@@ -86,7 +93,7 @@ namespace GradeScores
 
 					if (tokens.Length != 3)
 					{
-						throw new FormatException(string.Format("Incorrect number of tokens on line {0}", lineIndex));
+						throw new FormatException(string.Format("{0} (line {1})", ExceptionIncorrectNumberOfTokens, lineIndex));
 					}
 
 					// Note: Allow first/last name to be blank; spec doesn't require them to be valid
@@ -94,10 +101,11 @@ namespace GradeScores
 					string lastName = tokens[0].Trim();
 					string firstName = tokens[1].Trim();
 
+					// Spec: Grade appears to be between 1..100, but no range limit is given, so don't impose one
 					int grade;
 					if (!Int32.TryParse(tokens[2].Trim(), out grade))
 					{
-						throw new FormatException(string.Format("Invalid grade on line {0}", lineIndex));
+						throw new FormatException(string.Format("{0} (line {1})", ExceptionInvalidGrade, lineIndex));
 					}
 
 					Student student = new Student
@@ -113,7 +121,7 @@ namespace GradeScores
 
 			if (outData.Count <= 0)
 			{
-				throw new FormatException("No data provided");
+				throw new FormatException(ExceptionNoDataProvided);
 			}
 
 			return outData;

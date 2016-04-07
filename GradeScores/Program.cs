@@ -5,11 +5,11 @@ using System.IO;
 
 namespace GradeScores
 {
-	class Program
+	public class Program
 	{
-		const string OUTPUT_EXTENSION = "-graded.txt";
+		const string OutputFileSuffix = "-graded.txt";
 
-		static void Main(string[] args)
+		public static void Main(string[] args)
 		{
 			if (args.Length < 1)
 			{
@@ -54,7 +54,7 @@ namespace GradeScores
 			Console.WriteLine(outputData);
 
 			// Spec: Creates a new text file called <input-file-name>-graded.txt with the list of sorted score and names.
-			string outputFilename = Path.GetFileNameWithoutExtension(inputFilename) + OUTPUT_EXTENSION;
+			string outputFilename = Path.GetFileNameWithoutExtension(inputFilename) + OutputFileSuffix;
 			try
 			{
 				WriteOutputFile(outputFilename, outputData);
