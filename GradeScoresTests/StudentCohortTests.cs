@@ -257,7 +257,9 @@ namespace GradeScoresTests
 			var cohort = new StudentCohort(csvData);
 
 			string generatedCsv = cohort.GenerateCsv();
-			string expectedCsv = "Smith, John, 10\nDoe, Jane, 20";  // Spec example: Output includes spaces after commas
+			// Force newlines to be \n so string comparison doesn't fail this test on different platforms
+			generatedCsv = generatedCsv.Replace("\r\n", "\n").Replace("\r", "\n");
+			string expectedCsv = "Smith, John, 10\nDoe, Jane, 20\n";  // Spec example: Output includes spaces after commas
 			Assert.AreEqual(generatedCsv, expectedCsv);
 		}
 

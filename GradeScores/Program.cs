@@ -51,7 +51,7 @@ namespace GradeScores
 
 			// Spec: Example shows data being printed to console as well as written to file
 			string outputData = cohort.GenerateCsv();
-			Console.WriteLine(outputData);
+			Console.Write(outputData);
 
 			// Spec: Creates a new text file called <input-file-name>-graded.txt with the list of sorted score and names.
 			string outputFilename = Path.GetFileNameWithoutExtension(inputFilename) + OutputFileSuffix;

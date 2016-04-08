@@ -65,12 +65,13 @@ namespace GradeScores
 		{
 			// Note: Normally we'd use a library to write CSV files, but for the purpose of this test, do it manually
 			// Warning: Double quotes are not treated according to CSV spec!
-			List<string> lines = new List<string>();
+			StringBuilder builder = new StringBuilder();
 			foreach (Student student in m_students)
 			{
-				lines.Add(string.Format("{0}, {1}, {2}", student.lastName, student.firstName, student.grade));
+				builder.AppendFormat("{0}, {1}, {2}", student.lastName, student.firstName, student.grade);
+				builder.AppendLine();
 			}
-			return string.Join("\n", lines);
+			return builder.ToString();
 		}
 
 		///////////////////////////////////////////////////////////////////////
@@ -102,6 +103,7 @@ namespace GradeScores
 					string firstName = tokens[1].Trim();
 
 					// Spec: Grade appears to be between 1..100, but no range limit is given, so don't impose one
+					//   However this will fail tests on grades outside 32 bit range
 					int grade;
 					if (!Int32.TryParse(tokens[2].Trim(), out grade))
 					{
